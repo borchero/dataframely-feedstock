@@ -37,6 +37,9 @@ requirements:
     - python
     - numpy
     - polars >=1.12
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
   run_constraints:
     - mypy >=1.12
     - sqlalchemy >=2
