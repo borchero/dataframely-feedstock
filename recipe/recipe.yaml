@@ -1,7 +1,7 @@
 context:
   name: dataframely
-  version: "1.7.2"
-  python_min: "3.11.*"
+  version: "1.7.3"
+  python_min: "3.10.*"
 
 package:
   name: ${{ name }}
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 5eaf8a8a29598810a81d680670e5d1d6ee7a232bf640ec3173aea4b66e2ed026
+  sha256: 1e768b12c6db8774513062541aeb9211bd1bdb6d72a38ff274b73c4e89fe016a
 
 build:
   number: 0
@@ -37,6 +37,7 @@ requirements:
     - python
     - numpy
     - polars >=1.12
+    - typing-extensions # for Python <= 3.10
   ignore_run_exports:
     from_package:
       - cross-python_${{ target_platform }}
