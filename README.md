@@ -197,6 +197,3 @@ Feedstock Maintainers
 * [@borchero](https://github.com/borchero/)
 * [@delsner](https://github.com/delsner/)
 
-
-<!-- dummy commit to enable rerendering -->
-
