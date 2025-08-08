@@ -36,7 +36,7 @@ requirements:
   run:
     - python
     - numpy
-    - polars >=1.30
+    - polars >=1.32
     - typing-extensions # for Python <= 3.10
   ignore_run_exports:
     from_package:
