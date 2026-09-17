@@ -1,7 +1,6 @@
 context:
   name: dataframely
-  version: "3.0.0"
-  python_min: 3.10.*
+  version: "3.1.0"
 
 package:
   name: ${{ name }}
@@ -9,11 +8,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 122ddcf9926f5b9986e2e414f5d1a504e2140f0854c9a6f6199cf437e4b25415
+  sha256: eb3257b2d33351fecf04cfc6adf65584157d812e615f4e9c934f05359a423072
 
 build:
   number: 0
-  skip: not (match(python, python_min) and is_abi3)
+  skip: not (match(python, python_min ~ ".*") and is_abi3)
   python:
     version_independent: true
 
@@ -39,19 +38,25 @@ requirements:
     - numpy
     - polars >=1.35
     - typing_extensions
-  ignore_run_exports:
-    from_package:
-      - cross-python_${{ target_platform }}
   run_constraints:
     - pydantic >=2
     - sqlalchemy >=2
 
 tests:
   - python:
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
       imports:
         - dataframely
       pip_check: true
+  - requirements:
+      run:
+        - abi3audit
+    script:
+      - if: unix
+        then: abi3audit $SP_DIR/dataframely/_native.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+        else: abi3audit %SP_DIR%/dataframely/_native.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
 
 about:
   homepage: https://github.com/Quantco/dataframely
